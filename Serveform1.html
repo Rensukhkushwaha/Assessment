@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Survey Form</title>
+    <style>
+        div{
+            background-color: #a7b3a7db;
+        }
+        
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #2cdd11;
+    }
+    .container {
+        max-width: 400px;
+        margin: 0 auto;
+        padding: 20px;
+        border: 1px solid #090505;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    }
+    label {
+        display: block;
+        margin-bottom: 5px;
+        height: 30px;
+    }
+    select, input[type="text"], input[type="email"], input[type="tel"] {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+    }
+    .gender-checkbox label {
+        display: inline-block;
+        margin-right: 10px;
+    }
+    .buttons {
+        text-align: center;
+        color: rgb(162, 63, 6);
+    }
+    #popup {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: #f3f5ed;
+        padding: 20px;
+        border: 1px solid hsl(0, 85%, 49%);
+        box-shadow: 0 0 10px hsla(0, 8%, 88%, 0.934);
+        z-index: 9999;
+    }
+    
+    </style>
+   
+</head>
+<body>
+    <center><div1 ><h1>Survey Form </h1></div1></center>
+    <div class="container">
+        <form id="survey-form">
+            <label for="first-name">First Name</label>
+            <input type="text" id="first-name" required>
+            
+            <label for="last-name">Last Name</label>
+            <input type="text" id="last-name" required>
+            
+            <label for="date-of-birth">Date of Birth</label>
+            <input type="date" id="date-of-birth" required>
+            
+            <label for="country">Country</label>
+            <select id="country" required>
+                <option value="" disabled selected>Select your country</option>
+                <option value="India">India</option>
+                <option value="USA">USA</option>
+                <option value="Canada">Canada</option>
+                <option value="UK">UK</option>
+                <!-- Add more countries here -->
+            </select>
+            
+            <label>Gender</label>
+            <div class="gender-checkbox">
+                <label><input type="checkbox" name="gender" value="Male"> Male</label>
+                <label><input type="checkbox" name="gender" value="Female"> Female</label>
+                <label><input type="checkbox" name="gender" value="Other"> Other</label>
+            </div>
+            
+            <label for="profession">Profession</label>
+            <input type="text" id="profession" required>
+            
+            <label for="email">Email</label>
+            <input type="email" id="email" required>
+            
+            <label for="mobile-number">Mobile Number</label>
+            <input type="tel" id="mobile-number" required>
+            
+            <div class="buttons">
+                <button type="button" id="submit-button">Submit</button>
+                <button type="button" id="reset-button">Reset</button>
+            </div>
+        </form>
+    </div>
+
+    <div id="popup">
+        <h2>Survey Form Submission</h2>
+        <p><strong>First Name:</strong> <span id="popup-first-name"></span></p>
+        <p><strong>Last Name:</strong> <span id="popup-last-name"></span></p>
+        <p><strong>Date of Birth:</strong> <span id="popup-date-of-birth"></span></p>
+        <p><strong>Country:</strong> <span id="popup-country"></span></p>
+        <p><strong>Gender:</strong> <span id="popup-gender"></span></p>
+        <p><strong>Profession:</strong> <span id="popup-profession"></span></p>
+        <p><strong>Email:</strong> <span id="popup-email"></span></p>
+        <p><strong>Mobile Number:</strong> <span id="popup-mobile-number"></span></p>
+    </div>
+
+    <script>document.getElementById('submit-button').addEventListener('click', function() {
+        // Get values from the form
+        const firstName = document.getElementById('first-name').value;
+        const lastName = document.getElementById('last-name').value;
+        const dateOfBirth = document.getElementById('date-of-birth').value;
+        const country = document.getElementById('country').value;
+        const genderElements = document.querySelectorAll('input[name="gender"]:checked');
+        const profession = document.getElementById('profession').value;
+        const email = document.getElementById('email').value;
+        const mobileNumber = document.getElementById('mobile-number').value;
+    
+        // Check if at least one gender checkbox is checked
+        let gender = '';
+        if (genderElements.length > 0) {
+            gender = Array.from(genderElements).map(element => element.value).join(', ');
+        } else {
+            alert('Please select at least one gender.');
+            return;
+        }
+    
+        // Populate the popup with form values
+        document.getElementById('popup-first-name').textContent = firstName;
+        document.getElementById('popup-last-name').textContent = lastName;
+        document.getElementById('popup-date-of-birth').textContent = dateOfBirth;
+        document.getElementById('popup-country').textContent = country;
+        document.getElementById('popup-gender').textContent = gender;
+        document.getElementById('popup-profession').textContent = profession;
+        document.getElementById('popup-email').textContent = email;
+        document.getElementById('popup-mobile-number').textContent = mobileNumber;
+    
+        // Display the popup
+        document.getElementById('popup').style.display = 'block';
+    });
+    
+    document.getElementById('reset-button').addEventListener('click', function() {
+        // Reset the form
+        document.getElementById('survey-form').reset();
+    
+        // Hide the popup
+        document.getElementById('popup').style.display = 'none';
+    });
+    </script>
+</body>
+</div>
+</html>

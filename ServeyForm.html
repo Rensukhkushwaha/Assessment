@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Survey Form</title>
+    <style>
+        body { 
+            
+            font-family: Arial, sans-serif;
+            background-color: #2660e7;
+            margin: 0;
+            padding: 0;
+           
+        }
+
+        .container {
+            background-color: #efeaea;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(185, 188, 190, 0.2);
+            margin: 20px auto;
+            max-width: 400px;
+            padding: 100px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .form-group input[type="text"],
+        .form-group input[type="email"],
+        .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .form-group input[type="checkbox"] {
+            margin-right: 5px;
+        }
+
+        .button-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .button-container button {
+            padding: 10px 20px;
+            background-color: #2196F3;
+            color: #080707;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+
+        .popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(193, 18, 18, 0.7);
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            z-index: 1;
+        }
+
+        .popup-content {
+            background-color: #f1eded;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(253, 251, 251, 0.2);
+        }
+        textarea{
+            padding: 20px;
+            border-radius: 5px;
+            width: 100%;
+            height: 100%;
+
+        }
+        .form-control input[type="radio"],
+        .form-control input[type="checkbox"] {
+            display: inline-block;
+            width: auto;
+        }
+    </style>
+</head>
+<body>
+    <center><h1> Customer Survey Form</h2></center>
+    
+    <div class="container">
+        
+        <form id="survey-form">
+            <div class="form-group">
+                <label for="first-name" aria-required=""> Name:</label>
+                <input type="text" id="first-name" required>
+            </div>
+            <div class="form-group">
+                <label for="last-name">Email:</label>
+                <input type="text" id="Email" required>
+            </div>
+
+            <div class="form-group">
+                <label>is this first time you are using product or survice:</label>
+                <input type="checkbox" id="male"> Yes</label>
+                <input type="checkbox" id="female"> No</label>
+            </div>
+            <br>
+            <div class="form-group">
+                <label>Would you suggestion to your friends and colleage:</label>
+                <input type="checkbox" id="male"> Yes</label>
+                <input type="checkbox" id="female"> No</label>
+            </div>
+            <br>
+            <div class="form-group">
+                <label>How satiesfied are you with ouer company overall:</label>
+                <input type="checkbox" id="male"> Satisfied</label>
+                <input type="checkbox" id="female"> Undecide </label>
+                <input type="checkbox" id="female"> Unsatisfied</label>
+            </div>
+             <br>
+            <div class="form-group">
+                <label for="profession">Do u have  suggestion to improve our service ?:</label>
+                <textarea name="comment" id="comment"
+                placeholder="Enter your comment here">
+            </textarea>
+            </div>
+    
+            <div class="button-container">
+                <button type="submit">Submit</button>
+        
+            </div>
+        </form>
+    </div>
+
+   <div>
+    <div class="popup" id="popup">
+        <div class="popup-content">
+            <h2>Survey Response</h2>
+            <p>Profession: <span id="popup-profession"></span></p>
+            <p>Email: <span id="popup-email"></span></p>
+            <p>Mobile Number: <span id="popup-mobile"></span></p>
+            <button onclick="closePopup()">Close</button>
+        </div>
+    </div>
+   </div>
+
+    <script>
+        const surveyForm = document.getElementById('survey-form');
+        const popup = document.getElementById('popup');
+
+        surveyForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+            displayPopup();
+        });
+
+        function displayPopup() {
+            const firstName = document.getElementById('first-name').value;
+            const lastName = document.getElementById('last-name').value;
+            const dob = document.getElementById('dob').value;
+            const country = document.getElementById('country').value;
+            const gender = getSelectedGender();
+            const profession = document.getElementById('profession').value;
+            const email = document.getElementById('email').value;
+            const mobile = document.getElementById('mobile').value;
+
+            document.getElementById('popup-first-name').textContent = firstName;
+            document.getElementById('popup-last-name').textContent = lastName;
+            document.getElementById('popup-dob').textContent = dob;
+            document.getElementById('popup-country').textContent = country;
+            document.getElementById('popup-gender').textContent = gender;
+            document.getElementById('popup-profession').textContent = profession;
+            document.getElementById('popup-email').textContent = email;
+            document.getElementById('popup-mobile').textContent = mobile;
+
+            popup.style.display = 'block';
+        }
+
+        function getSelectedGender() {
+            const maleCheckbox = document.getElementById('male');
+            const femaleCheckbox = document.getElementById('female');
+
+            if (maleCheckbox.checked && femaleCheckbox.checked) {
+                return 'Both';
+            } else if (maleCheckbox.checked) {
+                return 'Male';
+            } else if (femaleCheckbox.checked) {
+                return 'Female';
+            } else {
+                return 'Not specified';
+            }
+        }
+
+        function resetForm() {
+            surveyForm.reset();
+        }
+
+        function closePopup() {
+            popup.style.display = 'none';
+            resetForm();
+        }
+    </script>
+</body>
+</html>
